@@ -1,3 +1,4 @@
+// src/features/library/pages/LibraryPage.tsx
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import type { LibraryBook } from '@/shared/types';
@@ -15,7 +16,7 @@ export default function LibraryPage() {
   useEffect(() => {
     const fetchBooks = async () => {
       try {
-        const response = await fetch('/books/index.json');
+        const response = await fetch('/books/manifest.json');
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
@@ -23,7 +24,7 @@ export default function LibraryPage() {
         const data: LibraryBook[] = await response.json();
         setBooks(data);
       } catch (e) {
-        setError('Failed to fetch the library. Please make sure /public/books/index.json exists.');
+        setError('Failed to fetch the library. Please make sure /public/books/manifest.json exists.');
         console.error(e);
       } finally {
         setLoading(false);
